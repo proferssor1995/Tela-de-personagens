@@ -36,6 +36,12 @@ def editar_personagens_por_id(id):
             personagens[indice].update(personagem_alterado)
             return jsonify(personagem[indice])
         return jsonify({'Erro: Personagem não encontrado'}), 404
+    
+@app.route('/personagens',methods=['POST'])
+def incluir_novo_personagem():
+    novo_personagem = request.get_json()
+    personagens.append(novo_personagem)
+    return jsonify(personagens)
 
 if __name__ == '__main__':
     app.run(port=5000, host='localhost', debug=True)
