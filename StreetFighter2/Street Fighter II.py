@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
+
+
 personagens = [
     {
         'id': 1,
@@ -34,9 +36,9 @@ def editar_personagens_por_id(id):
     for indice, personagem in enumerate(personagens):
         if personagem.get('id') == id:
             personagens[indice].update(personagem_alterado)
-            return jsonify(personagem[indice])
-        return jsonify({'Erro: Personagem não encontrado'}), 404
-    
+            return jsonify(personagens[indice])  # <- corrigido aqui também
+    return jsonify({'erro': 'Personagem não encontrado'}), 404
+
 @app.route('/personagens',methods=['POST'])
 def incluir_novo_personagem():
     novo_personagem = request.get_json()
@@ -44,4 +46,4 @@ def incluir_novo_personagem():
     return jsonify(personagens)
 
 if __name__ == '__main__':
-    app.run(port=5000, host='localhost', debug=True)
+    app.run()
